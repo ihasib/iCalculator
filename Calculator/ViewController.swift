@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var clearButton: UIButton!
     
-    //MARK: digit button
+    //MARK: Digit Button
     @IBOutlet weak var zeroButton: UIButton!
     @IBOutlet weak var oneButton: UIButton!
     @IBOutlet weak var twoButton: UIButton!
@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var nineButton: UIButton!
     @IBOutlet weak var decimalButton: UIButton!
     
-    //MARK: operational button
+    //MARK: Operational Buttons
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var subtracButton: UIButton!
     @IBOutlet weak var multiplyButton: UIButton!
@@ -36,11 +36,17 @@ class ViewController: UIViewController {
     
     //MARK: Variables
     @IBOutlet weak var displayLabel: UILabel!
-    var fistOperand: Double = 0
+    var firstOperand: Double = 0
     var secondOperand: Double = 0
+    var isOperationButtonActivated = false {
+        didSet {
+            
+        }
+    }
     
     var isReceivingSecondArg = false
     var isAddTapped = false
+    var currentOperation = Operation.none
     
 //    @IBAction func increaseStackHeight(_ sender: Any) {
 //        stackViewHeight.constant = stackViewHeight.constant + 50
@@ -50,6 +56,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    //MARK: Digit Button Action Methods
     @IBAction func zeroButtonTapped(_ sender: UIButton) {
         if isAddTapped {
             displayLabel.text = "0"
@@ -59,6 +66,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 
     @IBAction func oneButtonTapped(_ sender: UIButton) {
@@ -70,6 +79,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 
     @IBAction func twoButtonTapped(_ sender: UIButton) {
@@ -81,6 +92,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 
     @IBAction func threeButtonTapped(_ sender: UIButton) {
@@ -92,6 +105,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
     
     @IBAction func fourButtonTapped(_ sender: UIButton) {
@@ -103,6 +118,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 
     @IBAction func fiveButtonTapped(_ sender: UIButton) {
@@ -114,6 +131,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 
     @IBAction func sixButtonTapped(_ sender: UIButton) {
@@ -125,6 +144,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 
     @IBAction func sevenButtonTapped(_ sender: UIButton) {
@@ -136,6 +157,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
     
     @IBAction func eightButtonTapped(_ sender: UIButton) {
@@ -147,6 +170,8 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 
     @IBAction func nineButtonTapped(_ sender: UIButton) {
@@ -158,40 +183,92 @@ class ViewController: UIViewController {
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
+        setColorOrange()
+        isOperationButtonActivated = false
     }
     
     //MARK: operation button action methods
     @IBAction func addButtonTapped(_ sender: UIButton) {
         
-        
+        if !isOperationButtonActivated {
         secondOperand = Double(displayLabel.text ?? "") ?? 0
-        fistOperand = fistOperand + secondOperand
-        displayLabel.text = String(fistOperand)
+//        firstOperand = firstOperand + secondOperand
+        firstOperand = getExecutedValue()
+        displayLabel.text = String(firstOperand)
         isAddTapped = true
 //        else {
-//            fistOperand =  Double(displayLabel.text ?? "0") ?? 0
+//            firstOperand =  Double(displayLabel.text ?? "0") ?? 0
 //            isReceivingSecondArg = true
 //        }
         isReceivingSecondArg = true
-        sender.backgroundColor = .white
+        }
         
+        setColorOrange()
+        isOperationButtonActivated = true
+        sender.backgroundColor = .white
+        currentOperation = .addition
     }
 
     @IBAction func subtractButtonTapped(_ sender: UIButton) {
-        displayLabel.text = "0"
+        if !isOperationButtonActivated {
+        secondOperand = Double(displayLabel.text ?? "") ?? 0
+//        firstOperand = firstOperand - secondOperand
+        firstOperand = getExecutedValue()
+        displayLabel.text = String(firstOperand)
+        isAddTapped = true
+        //        else {
+        //            firstOperand =  Double(displayLabel.text ?? "0") ?? 0
+        //            isReceivingSecondArg = true
+        //        }
+        isReceivingSecondArg = true
+        }
         
+        setColorOrange()
+        sender.backgroundColor = .white
+        isOperationButtonActivated = true
+        currentOperation = .subtraction
+    }
+    
+    func getExecutedValue() -> Double {
+        var result = 0.0
+        switch currentOperation {
+            case .addition:
+            result = firstOperand + secondOperand
+            case .subtraction:
+            result = firstOperand - secondOperand
+            default:
+            result = secondOperand
+        }
+        return result
+    }
+    
+    func setColorOrange() {
+        self.addButton.backgroundColor = .systemOrange
+        self.subtracButton.backgroundColor = .systemOrange
+        self.multiplyButton.backgroundColor = .systemOrange
+        self.divideButton.backgroundColor = .systemOrange
+    }
+    
+    func setColorWhite() {
+        self.addButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.subtracButton .backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.multiplyButton .backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.divideButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
 
     @IBAction func multiplyButtonTapped(_ sender: UIButton) {
         displayLabel.text = "0"
+        isOperationButtonActivated = true
     }
 
     @IBAction func divideButtonTapped(_ sender: UIButton) {
         displayLabel.text = "0"
+        isOperationButtonActivated = true
     }
     
     @IBAction func modButtonTapped(_ sender: UIButton) {
         displayLabel.text = "0"
+        isOperationButtonActivated = true
     }
 
     @IBAction func decimalButtonTapped(_ sender: UIButton) {
@@ -200,12 +277,33 @@ class ViewController: UIViewController {
 
     @IBAction func equalButtonTapped(_ sender: UIButton) {
         displayLabel.text = "0"
-        fistOperand = 0
+        firstOperand = 0
         secondOperand = 0
     }
 
+    
+    var clearance = ClearanceState.allClear
     @IBAction func clearButtonTapped(_ sender: UIButton) {
+        if clearance == .allClear {
+            firstOperand = 0
+            secondOperand = 0
+        }
         displayLabel.text = "0"
+        isOperationButtonActivated = false
+        setColorOrange()
     }
 }
 
+enum ClearanceState: String {
+    case clear = "C"
+    case allClear = "AC"
+}
+
+enum Operation {
+    case addition
+    case subtraction
+    case multiplication
+    case division
+    case modulous
+    case none
+}

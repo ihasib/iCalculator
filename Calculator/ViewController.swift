@@ -57,12 +57,12 @@ class ViewController: UIViewController {
     }
 
     //MARK: Digit Button Action Methods
-    @IBAction func zeroButtonTapped(_ sender: UIButton) {
+    @IBAction func digitButtonTapped(_ sender: UIButton) {
         if isAddTapped {
-            displayLabel.text = "0"
+            displayLabel.text = String(sender.tag)
             isAddTapped = false
         } else {
-            displayLabel.text = displayLabel.text?.appending("0")
+            displayLabel.text = displayLabel.text?.appending(String(sender.tag))
         }
         //isReceivingSecondArg = false
         addButton.backgroundColor = .systemOrange
@@ -70,123 +70,7 @@ class ViewController: UIViewController {
         setColorOrange()
     }
 
-    @IBAction func oneButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "1"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("1")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-
-    @IBAction func twoButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "2"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("2")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-
-    @IBAction func threeButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "3"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("3")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-    
-    @IBAction func fourButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "4"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("4")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-
-    @IBAction func fiveButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "5"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("5")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-
-    @IBAction func sixButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "6"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("6")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-
-    @IBAction func sevenButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "7"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("7")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-    
-    @IBAction func eightButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "8"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("8")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        isOperationButtonActivated = false
-        setColorOrange()
-    }
-
-    @IBAction func nineButtonTapped(_ sender: UIButton) {
-        if isAddTapped {
-            displayLabel.text = "9"
-            isAddTapped = false
-        } else {
-            displayLabel.text = displayLabel.text?.appending("9")
-        }
-        //isReceivingSecondArg = false
-        addButton.backgroundColor = .systemOrange
-        setColorOrange()
-        isOperationButtonActivated = false
-    }
-    
+       
     //MARK: operation button action methods
     @IBAction func addButtonTapped(_ sender: UIButton) {
         

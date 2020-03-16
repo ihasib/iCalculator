@@ -46,6 +46,9 @@
                                                 <rect key="frame" x="314.5" y="0.0" width="99.5" height="76"/>
                                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="/"/>
+                                                <connections>
+                                                    <action selector="divideButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A5F-1o-9zr"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -185,7 +188,6 @@
                                                 <state key="normal" title="="/>
                                                 <connections>
                                                     <action selector="equalButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L4q-7t-0mh"/>
-                                                    <action selector="increaseStackHeight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qqd-Gm-SgX"/>
                                                 </connections>
                                             </button>
                                         </subviews>

@@ -236,6 +236,12 @@ class ViewController: UIViewController {
             result = firstOperand + secondOperand
             case .subtraction:
             result = firstOperand - secondOperand
+            case .multiplication:
+            result = firstOperand * secondOperand
+            case .division:
+            result = firstOperand / secondOperand
+//            case .modulous:
+//            result = firstOperand % secondOperand
             default:
             result = secondOperand
         }
@@ -257,13 +263,43 @@ class ViewController: UIViewController {
     }
 
     @IBAction func multiplyButtonTapped(_ sender: UIButton) {
-        displayLabel.text = "0"
-        isOperationButtonActivated = true
+         if !isOperationButtonActivated {
+                secondOperand = Double(displayLabel.text ?? "") ?? 0
+        //        firstOperand = firstOperand - secondOperand
+                firstOperand = getExecutedValue()
+                displayLabel.text = String(firstOperand)
+                isAddTapped = true
+                //        else {
+                //            firstOperand =  Double(displayLabel.text ?? "0") ?? 0
+                //            isReceivingSecondArg = true
+                //        }
+                isReceivingSecondArg = true
+                }
+                
+                setColorOrange()
+                sender.backgroundColor = .white
+                isOperationButtonActivated = true
+                currentOperation = .multiplication
     }
 
     @IBAction func divideButtonTapped(_ sender: UIButton) {
-        displayLabel.text = "0"
-        isOperationButtonActivated = true
+        if !isOperationButtonActivated {
+                secondOperand = Double(displayLabel.text ?? "") ?? 0
+        //        firstOperand = firstOperand - secondOperand
+                firstOperand = getExecutedValue()
+                displayLabel.text = String(firstOperand)
+                isAddTapped = true
+                //        else {
+                //            firstOperand =  Double(displayLabel.text ?? "0") ?? 0
+                //            isReceivingSecondArg = true
+                //        }
+                isReceivingSecondArg = true
+                }
+                
+                setColorOrange()
+                sender.backgroundColor = .white
+                isOperationButtonActivated = true
+                currentOperation = .division
     }
     
     @IBAction func modButtonTapped(_ sender: UIButton) {
@@ -276,9 +312,22 @@ class ViewController: UIViewController {
     }
 
     @IBAction func equalButtonTapped(_ sender: UIButton) {
-        displayLabel.text = "0"
-        firstOperand = 0
-        secondOperand = 0
+        if !isOperationButtonActivated {
+                secondOperand = Double(displayLabel.text ?? "") ?? 0
+        //        firstOperand = firstOperand - secondOperand
+                firstOperand = getExecutedValue()
+                displayLabel.text = String(firstOperand)
+                isAddTapped = true
+                //        else {
+                //            firstOperand =  Double(displayLabel.text ?? "0") ?? 0
+                //            isReceivingSecondArg = true
+                //        }
+                isReceivingSecondArg = true
+                }
+                
+                setColorOrange()
+                isOperationButtonActivated = false
+                currentOperation = .none
     }
 
     
@@ -291,6 +340,7 @@ class ViewController: UIViewController {
         displayLabel.text = "0"
         isOperationButtonActivated = false
         setColorOrange()
+        currentOperation = .none
     }
 }
 

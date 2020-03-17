@@ -33,11 +33,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var divideButton: UIButton!
     @IBOutlet weak var modButton: UIButton!
     @IBOutlet weak var equalButton: UIButton!
+    @IBOutlet weak var negateButton: UIButton!
     
     //MARK: Variables
     @IBOutlet weak var displayLabel: UILabel!
     var firstOperand: Double = 0
     var secondOperand: Double = 0
+    var clearance = ClearanceState.allClear
     var isOperationButtonActivated = false {
         didSet {
             
@@ -51,8 +53,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        setButtonFont()
     }
-
+    
+    func setButtonFont() {
+        zeroButton.titleLabel?.font = .systemFont(ofSize: 32)
+        oneButton.titleLabel?.font = .systemFont(ofSize: 32)
+        twoButton.titleLabel?.font = .systemFont(ofSize: 32)
+        threeButton.titleLabel?.font = .systemFont(ofSize: 32)
+        fourButton.titleLabel?.font = .systemFont(ofSize: 32)
+        fiveButton.titleLabel?.font = .systemFont(ofSize: 32)
+        sixButton.titleLabel?.font = .systemFont(ofSize: 32)
+        sevenButton.titleLabel?.font = .systemFont(ofSize: 32)
+        eightButton.titleLabel?.font = .systemFont(ofSize: 32)
+        nineButton.titleLabel?.font = .systemFont(ofSize: 32)
+        decimalButton.titleLabel?.font = .systemFont(ofSize: 32)
+        
+        equalButton.titleLabel?.font = .systemFont(ofSize: 32)
+        addButton.titleLabel?.font = .systemFont(ofSize: 32)
+        subtracButton.titleLabel?.font = .systemFont(ofSize: 32)
+        multiplyButton.titleLabel?.font = .systemFont(ofSize: 32)
+        divideButton.titleLabel?.font = .systemFont(ofSize: 32)
+        modButton.titleLabel?.font = .systemFont(ofSize: 32)
+        negateButton.titleLabel?.font = .systemFont(ofSize: 32)
+        clearButton.titleLabel?.font = .systemFont(ofSize: 32)
+    }
+    
     //MARK: Digit Button Action Methods
     @IBAction func digitButtonTapped(_ sender: UIButton) {
         if isAddTapped {
@@ -66,8 +92,8 @@ class ViewController: UIViewController {
         isOperationButtonActivated = false
         setColorOrange()
     }
-
-       
+    
+    
     //MARK: operation button action methods
     @IBAction func addButtonTapped(_ sender: UIButton) {
         buttonCommonOperation(sender)
@@ -94,7 +120,7 @@ class ViewController: UIViewController {
         currentOperation = .modulous
     }
     
-
+    
     //MARK: Operator Helper Function
     func buttonCommonOperation(_ sender: UIButton) {
         if !isOperationButtonActivated {
@@ -113,17 +139,17 @@ class ViewController: UIViewController {
         var result = 0.0
         switch currentOperation {
             case .addition:
-            result = firstOperand + secondOperand
+                result = firstOperand + secondOperand
             case .subtraction:
-            result = firstOperand - secondOperand
+                result = firstOperand - secondOperand
             case .multiplication:
-            result = firstOperand * secondOperand
+                result = firstOperand * secondOperand
             case .division:
-            result = firstOperand / secondOperand
+                result = firstOperand / secondOperand
             case .modulous:
                 result = Double(Int(firstOperand) % Int(secondOperand))
             default:
-            result = secondOperand
+                result = secondOperand
         }
         return result
     }
@@ -147,7 +173,7 @@ class ViewController: UIViewController {
     @IBAction func decimalButtonTapped(_ sender: UIButton) {
         displayLabel.text = "0"
     }
-
+    
     @IBAction func equalButtonTapped(_ sender: UIButton) {
         if !isOperationButtonActivated {
             secondOperand = Double(displayLabel.text ?? "") ?? 0
@@ -160,9 +186,7 @@ class ViewController: UIViewController {
         isOperationButtonActivated = false
         currentOperation = .none
     }
-
     
-    var clearance = ClearanceState.allClear
     @IBAction func clearButtonTapped(_ sender: UIButton) {
         if clearance == .allClear {
             firstOperand = 0

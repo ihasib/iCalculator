@@ -24,6 +24,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYH-u8-zCQ">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="76"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <state key="normal" title="AC"/>
                                                 <connections>
                                                     <action selector="clearButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zEB-0H-h0o"/>
@@ -231,6 +232,7 @@
                         <outlet property="fourButton" destination="bKj-xl-3nX" id="tZC-3w-C09"/>
                         <outlet property="modButton" destination="mQx-Gg-lU8" id="auI-9K-BZI"/>
                         <outlet property="multiplyButton" destination="kHR-CP-slK" id="m62-T3-67h"/>
+                        <outlet property="negateButton" destination="4iV-Gb-goJ" id="A1S-vW-hwF"/>
                         <outlet property="nineButton" destination="vad-tW-GmN" id="Yum-13-gpS"/>
                         <outlet property="oneButton" destination="OIR-cl-ZsT" id="kvD-Hg-RbY"/>
                         <outlet property="sevenButton" destination="GTl-md-4D9" id="U0v-5s-6i4"/>

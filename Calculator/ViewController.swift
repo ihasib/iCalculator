@@ -4,7 +4,7 @@
 //
 //  Created by S. M. Hasibur Rahman on 2/22/20.
 //  Copyright © 2020 S. M. Hasibur Rahman. All rights reserved.
-//
+// implement clear button 1hr
 
 import UIKit
 
@@ -39,46 +39,44 @@ class ViewController: UIViewController {
     @IBOutlet weak var displayLabel: UILabel!
     var firstOperand: Double = 0
     var secondOperand: Double = 0
-    var clearance = ClearanceState.allClear
+    var clearance = ClearanceState.allClear {
+        didSet {
+            update()
+        }
+    }
     var isOperationButtonActivated = false {
         didSet {
             
+        }
+    }
+
+    func update() {
+        if clearance == .allClear {
+            clearButton.setTitle("AC", for: .normal) 
+        } else {
+            clearButton.setTitle("<-", for: .normal)
         }
     }
     
     var isReceivingSecondArg = false
     var isAddTapped = false
     var currentOperation = Operation.none
+    var textFieldDelegate: UITextFieldDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         setButtonFont()
+        displayLabel.addObserver(self, forKeyPath: "text", options: [.old], context: nil)
     }
     
-    func setButtonFont() {
-        zeroButton.titleLabel?.font = .systemFont(ofSize: 32)
-        oneButton.titleLabel?.font = .systemFont(ofSize: 32)
-        twoButton.titleLabel?.font = .systemFont(ofSize: 32)
-        threeButton.titleLabel?.font = .systemFont(ofSize: 32)
-        fourButton.titleLabel?.font = .systemFont(ofSize: 32)
-        fiveButton.titleLabel?.font = .systemFont(ofSize: 32)
-        sixButton.titleLabel?.font = .systemFont(ofSize: 32)
-        sevenButton.titleLabel?.font = .systemFont(ofSize: 32)
-        eightButton.titleLabel?.font = .systemFont(ofSize: 32)
-        nineButton.titleLabel?.font = .systemFont(ofSize: 32)
-        decimalButton.titleLabel?.font = .systemFont(ofSize: 32)
-        
-        equalButton.titleLabel?.font = .systemFont(ofSize: 32)
-        addButton.titleLabel?.font = .systemFont(ofSize: 32)
-        subtracButton.titleLabel?.font = .systemFont(ofSize: 32)
-        multiplyButton.titleLabel?.font = .systemFont(ofSize: 32)
-        divideButton.titleLabel?.font = .systemFont(ofSize: 32)
-        modButton.titleLabel?.font = .systemFont(ofSize: 32)
-        negateButton.titleLabel?.font = .systemFont(ofSize: 32)
-        clearButton.titleLabel?.font = .systemFont(ofSize: 32)
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if displayLabel.text == "" {
+            clearance = .allClear
+        } else {
+            clearance = .clear
+        }
     }
-    
     //MARK: Digit Button Action Methods
     @IBAction func digitButtonTapped(_ sender: UIButton) {
         if isAddTapped {
@@ -92,7 +90,6 @@ class ViewController: UIViewController {
         isOperationButtonActivated = false
         setColorOrange()
     }
-    
     
     //MARK: operation button action methods
     @IBAction func addButtonTapped(_ sender: UIButton) {
@@ -120,12 +117,52 @@ class ViewController: UIViewController {
         currentOperation = .modulous
     }
     
+    @IBAction func decimalButtonTapped(_ sender: UIButton) {
+        displayLabel.text = "0"
+    }
+    
+    @IBAction func equalButtonTapped(_ sender: UIButton) {
+        if !isOperationButtonActivated {
+            secondOperand = Double(displayLabel.text ?? "") ?? 0
+            firstOperand = getExecutedValue()
+            displayLabel.text = String(firstOperand)
+            isAddTapped = true
+            isReceivingSecondArg = true
+        }
+        setColorOrange()
+        isOperationButtonActivated = false
+        currentOperation = .none
+    }
+    
+    @IBAction func clearButtonTapped(_ sender: UIButton) {
+        if clearance == .allClear {
+            firstOperand = 0
+            secondOperand = 0
+            displayLabel.text = ""
+            isOperationButtonActivated = false
+            setColorOrange()
+            currentOperation = .none
+        } else {
+            if let text = displayLabel.text {
+                let newStr = text.prefix(text.count-1)
+                displayLabel.text = String(newStr)
+//                if displayLabel.text == "" {
+//                    clearance = .allClear
+//                    clearButton.setTitle("C", for: .normal)
+//                }
+                print(newStr)
+            }
+        }
+        
+    }
     
     //MARK: Operator Helper Function
     func buttonCommonOperation(_ sender: UIButton) {
         if !isOperationButtonActivated {
-            secondOperand = Double(displayLabel.text ?? "") ?? 0
-            firstOperand = getExecutedValue()
+            if let secondOperand = Double(displayLabel.text ?? "") {
+                self.secondOperand = secondOperand
+                firstOperand = getExecutedValue()
+            }
             displayLabel.text = String(firstOperand)
             isAddTapped = true
             isReceivingSecondArg = true
@@ -154,6 +191,30 @@ class ViewController: UIViewController {
         return result
     }
     
+    // MARK: Button Attribute Methods
+    func setButtonFont() {
+        zeroButton.titleLabel?.font = .systemFont(ofSize: 32)
+        oneButton.titleLabel?.font = .systemFont(ofSize: 32)
+        twoButton.titleLabel?.font = .systemFont(ofSize: 32)
+        threeButton.titleLabel?.font = .systemFont(ofSize: 32)
+        fourButton.titleLabel?.font = .systemFont(ofSize: 32)
+        fiveButton.titleLabel?.font = .systemFont(ofSize: 32)
+        sixButton.titleLabel?.font = .systemFont(ofSize: 32)
+        sevenButton.titleLabel?.font = .systemFont(ofSize: 32)
+        eightButton.titleLabel?.font = .systemFont(ofSize: 32)
+        nineButton.titleLabel?.font = .systemFont(ofSize: 32)
+        decimalButton.titleLabel?.font = .systemFont(ofSize: 32)
+        
+        equalButton.titleLabel?.font = .systemFont(ofSize: 32)
+        addButton.titleLabel?.font = .systemFont(ofSize: 32)
+        subtracButton.titleLabel?.font = .systemFont(ofSize: 32)
+        multiplyButton.titleLabel?.font = .systemFont(ofSize: 32)
+        divideButton.titleLabel?.font = .systemFont(ofSize: 32)
+        modButton.titleLabel?.font = .systemFont(ofSize: 32)
+        negateButton.titleLabel?.font = .systemFont(ofSize: 32)
+        clearButton.titleLabel?.font = .systemFont(ofSize: 32)
+    }
+    
     func setColorOrange() {
         self.addButton.backgroundColor = .systemOrange
         self.subtracButton.backgroundColor = .systemOrange
@@ -168,34 +229,6 @@ class ViewController: UIViewController {
         self.multiplyButton .backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.divideButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         self.modButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    }
-    
-    @IBAction func decimalButtonTapped(_ sender: UIButton) {
-        displayLabel.text = "0"
-    }
-    
-    @IBAction func equalButtonTapped(_ sender: UIButton) {
-        if !isOperationButtonActivated {
-            secondOperand = Double(displayLabel.text ?? "") ?? 0
-            firstOperand = getExecutedValue()
-            displayLabel.text = String(firstOperand)
-            isAddTapped = true
-            isReceivingSecondArg = true
-        }
-        setColorOrange()
-        isOperationButtonActivated = false
-        currentOperation = .none
-    }
-    
-    @IBAction func clearButtonTapped(_ sender: UIButton) {
-        if clearance == .allClear {
-            firstOperand = 0
-            secondOperand = 0
-        }
-        displayLabel.text = ""
-        isOperationButtonActivated = false
-        setColorOrange()
-        currentOperation = .none
     }
 }
 

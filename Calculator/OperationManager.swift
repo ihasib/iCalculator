@@ -77,6 +77,8 @@ class OperationManager {
                 executeOperation()
             case "AC","<-":
                 executeClearance(with: buttonTitle)
+            case "+/-":
+                negateSecondOperand()
             default:
                 print("operation")
         }
@@ -95,6 +97,17 @@ class OperationManager {
         secondOperand = ""
         firstOperator = .none
         secondOperator = .none
+    }
+    
+    private func negateSecondOperand() {
+        if secondOperand == "" {
+            return
+        }
+        if secondOperand[secondOperand.startIndex] == "-" {
+            secondOperand = String(secondOperand.dropFirst())
+            return
+        }
+        secondOperand.insert("-", at: secondOperand.startIndex)
     }
     
     private func generateSecondOperand(newChar: String) {

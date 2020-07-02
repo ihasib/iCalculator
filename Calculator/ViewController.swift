@@ -9,7 +9,7 @@ import UIKit
 
 protocol OperationManagerVcProtocol {
     func updateDisplay(with text: String)
-    func updateClearButton()
+    func updateClearButton(with clearanceState: ClearanceState)
 }
 
 class ViewController: UIViewController {
@@ -42,19 +42,6 @@ class ViewController: UIViewController {
     //MARK: Variables
     @IBOutlet weak var displayLabel: UILabel!
     var dataBridgeToOperationManager: DataCarrierVcToOperationManager?
-    var clearance = ClearanceState.allClear {
-        didSet {
-            update()
-        }
-    }
-
-    func update() {
-        if clearance == .allClear {
-            clearButton.setTitle("AC", for: .normal) 
-        } else {
-            clearButton.setTitle("<-", for: .normal)
-        }
-    }
     
     var isReceivingSecondArg = false
     var isAddTapped = false
@@ -119,9 +106,11 @@ extension ViewController: OperationManagerVcProtocol {
         displayLabel.text = text
     }
     
-    func updateClearButton() {
-        print("")
+    func updateClearButton(with clearanceState: ClearanceState) {
+        if clearanceState == .allClear {
+            clearButton.setTitle("AC", for: .normal)
+        } else {
+            clearButton.setTitle("<-", for: .normal)
+        }
     }
-    
-    
 }

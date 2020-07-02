@@ -34,8 +34,11 @@ class OperationManager {
         didSet {
             if secondOperand == "" {
                 secondOperandObserver?.updateDisplay(with: firstOperand)
+                secondOperandObserver?.updateClearButton(with: .allClear)
+                
             } else {
                 secondOperandObserver?.updateDisplay(with: secondOperand)
+                secondOperandObserver?.updateClearButton(with: .clear)
             }
         }
     }
@@ -72,11 +75,26 @@ class OperationManager {
             case "=":
                 secondOperator = .equal
                 executeOperation()
-            case ".","AC","<-":
-            secondOperator = .addition
+            case "AC","<-":
+                executeClearance(with: buttonTitle)
             default:
                 print("operation")
         }
+    }
+    
+    private func executeClearance(with title:  String) {
+        if title == "AC" {
+            clearAll()
+            return
+        }
+        secondOperand = String(secondOperand.dropLast())
+    }
+    
+    private func clearAll() {
+        firstOperand = ""
+        secondOperand = ""
+        firstOperator = .none
+        secondOperator = .none
     }
     
     private func generateSecondOperand(newChar: String) {

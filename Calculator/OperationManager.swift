@@ -42,7 +42,11 @@ class OperationManager {
             }
         }
     }
-    private var firstOperator: Operation
+    private var firstOperator: Operation {
+        didSet {
+            secondOperandObserver?.updateOperatorButton(with: firstOperator)
+        }
+    }
     private var secondOperator: Operation
     private var secondOperandObserver: OperationManagerVcProtocol?
     
@@ -79,6 +83,8 @@ class OperationManager {
                 executeClearance(with: buttonTitle)
             case "+/-":
                 negateSecondOperand()
+            case ".":
+                appendDecimalPoint()
             default:
                 print("operation")
         }
@@ -90,6 +96,13 @@ class OperationManager {
             return
         }
         secondOperand = String(secondOperand.dropLast())
+    }
+    
+    private func appendDecimalPoint() {
+        if secondOperand.contains(".") {
+            return
+        }
+        secondOperand.append(".")
     }
     
     private func clearAll() {

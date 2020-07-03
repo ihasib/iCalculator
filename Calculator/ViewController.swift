@@ -10,6 +10,7 @@ import UIKit
 protocol OperationManagerVcProtocol {
     func updateDisplay(with text: String)
     func updateClearButton(with clearanceState: ClearanceState)
+    func updateOperatorButton(with operationType: Operation)
 }
 
 class ViewController: UIViewController {
@@ -111,6 +112,24 @@ extension ViewController: OperationManagerVcProtocol {
             clearButton.setTitle("AC", for: .normal)
         } else {
             clearButton.setTitle("<-", for: .normal)
+        }
+    }
+    
+    func updateOperatorButton(with operationType: Operation) {
+        setColorOrange()
+        switch operationType {
+            case .addition:
+                addButton.backgroundColor = .white
+            case .subtraction:
+                subtracButton.backgroundColor = .white
+            case .multiplication:
+                multiplyButton.backgroundColor = .white
+            case .division:
+                divideButton.backgroundColor = .white
+            case .modulous:
+                modButton.backgroundColor = .white
+            default:
+                setColorOrange()
         }
     }
 }

@@ -19,13 +19,41 @@ class CalculatorTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testAddition() throws {
         let f = "10.0"
         let s = "20.0"
         let ans = Calculator.getCalculatedValue(firstOperand: f, secondOperand: s, operation: .addition)
         XCTAssertTrue(ans == 30, "ans should be equal to 30")
     }
+    
+    func testSubtraction() throws {
+        let f = "10.0"
+        let s = "20.0"
+        let ans = Calculator.getCalculatedValue(firstOperand: f, secondOperand: s, operation: .subtraction)
+        XCTAssertTrue(ans == -10, "ans should be equal to -10")
+    }
+    
+    func testMultiplication() throws {
+        let f = "10.0"
+        let s = "20.0"
+        let ans = Calculator.getCalculatedValue(firstOperand: f, secondOperand: s, operation: .multiplication)
+        XCTAssertTrue(ans == 200, "ans should be equal to 200")
+    }
+    
+    func testDivision() throws {
+        let f = "10.0"
+        let s = "20.0"
+        let ans = Calculator.getCalculatedValue(firstOperand: f, secondOperand: s, operation: .division)
+        XCTAssertTrue(ans == 0.5, "ans should be equal to 0.5")
+    }
 
+    func testModulus() throws {
+        let f = "10.0"
+        let s = "20.0"
+        let ans = Calculator.getCalculatedValue(firstOperand: f, secondOperand: s, operation: .modulous)
+        XCTAssertTrue(ans == 10, "ans should be equal to 10")
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
